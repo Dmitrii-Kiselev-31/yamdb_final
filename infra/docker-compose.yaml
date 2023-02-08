@@ -4,11 +4,11 @@ services:
   db:
     image: postgres:13.0-alpine
     volumes:
-      - /var/lib/postgresql/data/
+      - data_value:/var/lib/postgresql/data/
     env_file:
       - ./.env
   web:
-    build: ../api_yamdb
+    image: dmitriikiselev31/api_yamdb:latest
     restart: always
     volumes:
       - static_value:/app/static/
@@ -20,21 +20,18 @@ services:
 
   nginx:
     image: nginx:1.21.3-alpine
-
     ports:
       - "80:80"
-
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
-
       - static_value:/var/html/static/
-
       - media_value:/var/html/media/
-
+    env_file:
+    - ./.env
     depends_on:
       - web
 
 volumes:
+  data_value:
   static_value:
   media_value:
-
