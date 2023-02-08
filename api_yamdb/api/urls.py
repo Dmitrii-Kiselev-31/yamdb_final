@@ -4,7 +4,6 @@ from rest_framework.routers import SimpleRouter
 from .views import (CategoryViewSet, CommentViewSet, GenreViewSet,
                     ReviewViewSet, TitleViewSet, UserViewSet, sign_up, token)
 
-
 router = SimpleRouter()
 
 
