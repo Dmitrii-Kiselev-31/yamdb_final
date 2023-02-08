@@ -1,3 +1,5 @@
+from api.permissions import (AdminUserOrReadOnly, AuthorAdminReadOnly,
+                             CommentReviewPermission, IsAdminOrSuperuser)
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
@@ -15,8 +17,6 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 from reviews.models import Category, Genre, Title, User
 
-from api.permissions import (AdminUserOrReadOnly, AuthorAdminReadOnly,
-                             CommentReviewPermission, IsAdminOrSuperuser)
 from .filters import TitleFilter
 from .serializers import (CategorySerializer, CommentSerializer,
                           GenreSerializer, RegistrationSerializer,
@@ -51,6 +51,7 @@ class UserViewSet(ModelViewSet):
         if request.method == 'GET':
             serializer = self.get_serializer(request.user)
             return Response(serializer.data)
+        return False
 
 
 @api_view(['POST'])
